@@ -6,23 +6,14 @@ type NavMenuProps = {}
 
 export const NavMenu : FunctionComponent<NavMenuProps> = (props) => {
     return (
-        <Navbar collapseOnSelect expand="lg" bg="transparent">
+        <Navbar collapseOnSelect expand="lg" bg="primary">
             <Container>
-                <Navbar.Brand as={Link} to='/'>
-                    <img
-                        src="../logo.svg"
-                        width="50"
-                        height="50"
-                        className="d-inline-block align-top"
-                        alt="TruckSpot logo"
-                        style={{margin: 0}}
-                    />
-                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#pricing">About</Nav.Link>
+                        <Nav.Link as={Link} to='/'>Search</Nav.Link>
                         <Nav.Link as={Link} to='add'>Add your Truck</Nav.Link>
+                        <Nav.Link as={Link} to=''>About</Nav.Link>
                     </Nav>
                     <Nav>
                         <Nav.Link as={Link} to='login'>Sign In</Nav.Link>
