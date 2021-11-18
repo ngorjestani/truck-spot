@@ -9,7 +9,7 @@ export const NavMenu : FunctionComponent<NavMenuProps> = (props) => {
         <Navbar collapseOnSelect expand="lg" bg="primary">
             <Container>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
+                <Navbar.Collapse id="responsive-navbar-nav" className='fw-bold'>
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to='/'>Search</Nav.Link>
                         <Nav.Link as={Link} to='add'>Add your Truck</Nav.Link>
