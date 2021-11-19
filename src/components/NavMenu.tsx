@@ -5,11 +5,13 @@ import {Link} from "react-router-dom";
 type NavMenuProps = {}
 
 export const NavMenu : FunctionComponent<NavMenuProps> = (props) => {
+    const navStyle = {'fontSize':'1.25rem', 'letterSpacing':'.1rem', '--bs-bg-opacity': '.9'}
+
     return (
-        <Navbar collapseOnSelect expand="lg" bg="primary">
+        <Navbar collapseOnSelect expand="lg" bg="primary" className='shadow-sm border-top border-3' style={navStyle}>
             <Container>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav" className='fw-bold'>
+                <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to='/'>Search</Nav.Link>
                         <Nav.Link as={Link} to='add'>Add your Truck</Nav.Link>
