@@ -15,16 +15,15 @@ function App() {
         <div className="App">
             <NavMenu />
             <Routes>
-                <Route path='/' element={<Home/>}>
-                    <Route path='login' element={<SignIn/>}>
-                        <Route path='create' element={<CreateAccount/>}/>
-                    </Route>
-                    <Route path='results' element={<SearchResults/>}>
-                        <Route path='detail' element={<TruckDetail />} />
-                    </Route>
-                    <Route path='account' element={<Account />} />
-                    <Route path='add' element={<AddTruck />} />
+                <Route path='/' element={<Home/>} />
+                <Route path='login' element={<SignIn/>}>
+                    <Route path='create' element={<CreateAccount/>}/>
                 </Route>
+                <Route path='results' element={<SearchResults/>}>
+                    <Route path='detail' element={<TruckDetail />} />
+                </Route>
+                <Route path='account' element={<Account />} />
+                <Route path='add' element={<AddTruck />} />
             </Routes>
         </div>
     );
