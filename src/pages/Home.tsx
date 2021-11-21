@@ -1,7 +1,6 @@
 import {FunctionComponent} from "react";
-import {Button, Col, Container, Form, Image, InputGroup, Row} from "react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import {Col, Container, Image, Row} from "react-bootstrap";
+import {Search} from "../components/Search";
 
 type HomeProps = {
 
@@ -17,13 +16,7 @@ export const Home : FunctionComponent<HomeProps> = (props) => {
             </Row>
             <Row className='mt-5'>
                 <Col xs={{span: 10, offset: 1}} md={{span: 8, offset: 2}}>
-                    <Form.Group>
-                        <InputGroup>
-                            <Form.Control type='input' placeholder='Search...' className='rounded-pill' />
-                            <Button><FontAwesomeIcon icon={faSearch} /></Button>
-                        </InputGroup>
-
-                    </Form.Group>
+                    <Search />
                 </Col>
             </Row>
         </Container>
