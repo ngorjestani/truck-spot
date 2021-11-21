@@ -19,7 +19,7 @@ export const SignInForm : FunctionComponent<SignInFormProps> = (props) => {
                     <Form.Control type='password' placeholder='Password' className='rounded-pill' />
                 </Form.Group>
                 <Form.Text className='text-muted'>
-                    Don't have an account? <Link to='create'>Create an account</Link>
+                    Don't have an account? <Link to='../create'>Create an account</Link>
                 </Form.Text>
                 <br />
                 <Button variant='primary' type='submit' className='mt-2 rounded-pill shadow-sm'>
