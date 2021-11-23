@@ -10,6 +10,8 @@ import {TruckDetail} from "./pages/TruckDetail";
 import {AddTruck} from "./pages/AddTruck";
 import {NavMenu} from "./components/NavMenu";
 
+require('dotenv').config();
+
 function App() {
     return (
         <div className="App">
