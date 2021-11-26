@@ -4,16 +4,18 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
 import {usePlacesWidget} from "react-google-autocomplete";
 
-type SearchProps = {
+type SearchProps = {}
 
-}
-
-export const Search : FunctionComponent<SearchProps> = () => {
-    const { ref } = usePlacesWidget<HTMLInputElement>({
-        apiKey: process.env.GOOGLE_MAPS_API_KEY,
+export const Search: FunctionComponent<SearchProps> = () => {
+    const {ref} = usePlacesWidget<HTMLInputElement>({
+        apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         onPlaceSelected: (place) => {
             console.log(place);
-    }
+        },
+        options: {
+            types: ['address'],
+        }
+
     });
 
     console.log(process.env.GOOGLE_MAPS_API_KEY)
@@ -27,7 +29,7 @@ export const Search : FunctionComponent<SearchProps> = () => {
                     placeholder='Search...'
                     className='rounded-pill'
                 />
-                <Button><FontAwesomeIcon icon={faSearch} /></Button>
+                <Button><FontAwesomeIcon icon={faSearch}/></Button>
             </InputGroup>
         </Form.Group>
     )
