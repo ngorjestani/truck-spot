@@ -9,12 +9,17 @@ type AddTruckFormProps = {
 
 export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
     const [inputState, setInputState] = useState({
-
+        name: '',
+        phone: '',
+        cuisine: cuisines[0].value,
+        website: '',
     });
+    const [address, setAddress] = useState({});
+    const [image, setImage] = useState<FileList>();
     const {ref} = usePlacesWidget<HTMLInputElement>({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        onPlaceSelected: (place) => {
-            console.log(place);
+        onPlaceSelected: (p) => {
+            setAddress(p);
         },
         options: {
             types: ['address'],
@@ -22,17 +27,17 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
     });
     const getCuisines = () => {
         return (
-            <Form.Select>
+            <Form.Select
+                value={inputState.cuisine}
+                onChange={(e) => {
+                    setInputState({...inputState, cuisine: e.target.value})
+                }}
+            >
                 {cuisines.map((cuisine, id) => (
-                    <option value={cuisine.id}>{cuisine.value}</option>
+                    <option value={cuisine.value}>{cuisine.value}</option>
                 ))}
             </Form.Select>
         );
-    };
-    const inputRef = useRef<HTMLInputElement>(null);
-    const handleUpload = (e: React.MouseEvent) => {
-        e.preventDefault();
-        inputRef.current?.click();
     };
 
     return (
@@ -45,6 +50,10 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
                             <Form.Control
                                 type='text'
                                 placeholder='Name'
+                                value={inputState.name}
+                                onChange={(e) => {
+                                    setInputState({...inputState, name: e.target.value})
+                                }}
                             />
                         </Form.Group>
                     </Col>
@@ -55,6 +64,7 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
                                 type='text'
                                 placeholder='Address'
                                 ref={ref}
+                                onChange={(e) => e.preventDefault()}
                             />
                         </Form.Group>
                     </Col>
@@ -66,6 +76,10 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
                             <Form.Control
                                 type='tel'
                                 placeholder='Phone Number'
+                                value={inputState.phone}
+                                onChange={(e) => {
+                                    setInputState({...inputState, phone: e.target.value})
+                                }}
                             />
                         </Form.Group>
                     </Col>
@@ -81,6 +95,10 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
                             <Form.Control
                                 type='text'
                                 placeholder='Website'
+                                value={inputState.website}
+                                onChange={(e) => {
+                                    setInputState({...inputState, website: e.target.value})
+                                }}
                             />
                         </Form.Group>
                     </Col>
@@ -89,8 +107,14 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
                     <Col>
                         <div className="m-3">
                             <label className='m-3'>Upload image:</label>
-                            <input type="file" ref={inputRef} className='d-none'/>
-                            <button onClick={handleUpload} className='btn btn-primary'>Upload</button>
+                            <input
+                                type="file"
+                                onChange={(e) => {
+                                    if (e.target.files) {
+                                        setImage(e.target.files);
+                                    }
+                                }}
+                            />
                         </div>
                     </Col>
                 </Row>
