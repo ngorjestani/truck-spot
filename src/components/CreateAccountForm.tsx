@@ -2,31 +2,30 @@ import {FunctionComponent, useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {auth} from "../config/firebaseConfig";
-import {useCreateUserWithEmailAndPassword} from "react-firebase-hooks/auth";
 
-type CreateAccountFormProps = {
+type CreateAccountFormProps = {}
 
-}
-
-export const CreateAccountForm : FunctionComponent<CreateAccountFormProps> = (props) => {
+export const CreateAccountForm: FunctionComponent<CreateAccountFormProps> = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [
-        createUserWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useCreateUserWithEmailAndPassword(auth);
 
     const handleSubmit = () => {
-
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                console.log(userCredential)
+            })
+            .catch((error) => {
+                let errorCode = error.code;
+                let errorMessage = error.message;
+                console.error('error creating user', errorCode, errorMessage);
+            });
     };
 
-        return (
-        <Form className='bg-light p-3 rounded shadow'>
+    return (
+        <Form className='bg-light p-3 rounded shadow' onSubmit={handleSubmit}>
             <Row className='mb-2'>
                 <Col md={6}>
                     <Form.Group>
