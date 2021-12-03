@@ -1,7 +1,8 @@
-import {FunctionComponent, useRef, useState} from "react";
+import {FormEvent, FunctionComponent, useRef, useState} from "react";
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {usePlacesWidget} from "react-google-autocomplete";
 import {cuisines} from "../models/Cuisines";
+import FoodTruck from "../models/FoodTruck";
 
 type AddTruckFormProps = {
 
@@ -40,9 +41,14 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
         );
     };
 
+    const handleSubmit = (e : FormEvent) => {
+        e.preventDefault();
+
+    }
+
     return (
         <Container>
-            <Form className='bg-light p-3 rounded shadow'>
+            <Form className='bg-light p-3 rounded shadow' onSubmit={handleSubmit}>
                 <Row className='mb-2'>
                     <Col xl={6}>
                         <Form.Group>
