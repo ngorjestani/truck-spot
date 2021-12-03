@@ -9,11 +9,25 @@ import {Account} from "./pages/Account";
 import {TruckDetail} from "./pages/TruckDetail";
 import {AddTruck} from "./pages/AddTruck";
 import {NavMenu} from "./components/NavMenu";
+import {auth} from "./config/firebaseConfig";
+import User from "./models/User";
 
 require('dotenv').config();
 
 function App() {
-    const user = useState(null);
+    const [authUser, setAuthUser] = useState<User | null>(null);
+
+    auth.onAuthStateChanged((user?) => {
+        if (user) {
+            console.log('Signed in as: ', user);
+
+            setAuthUser(new User(user));
+        } else {
+            console.log('Not signed in');
+
+            setAuthUser(null);
+        }
+    })
 
     return (
         <div className="App">

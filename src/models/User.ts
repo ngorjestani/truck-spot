@@ -5,6 +5,8 @@ class User {
         let displayName = '';
         let email = '';
         let photoURL = '';
+
+
         let uid = '';
 
         if (firebaseUser) {
