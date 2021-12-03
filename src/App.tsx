@@ -31,7 +31,7 @@ function App() {
 
     return (
         <div className="App">
-            <NavMenu />
+            <NavMenu user={authUser} />
             <Routes>
                 <Route path='/' element={<Home/>} />
                 <Route path='login' element={<SignIn/>} />

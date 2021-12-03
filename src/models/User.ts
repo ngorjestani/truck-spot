@@ -1,19 +1,22 @@
 import firebase from "firebase";
 
 class User {
+    displayName: string;
+    email: string;
+    photoURL: string;
+    uid: string;
+
     constructor(firebaseUser?: firebase.User) {
-        let displayName = '';
-        let email = '';
-        let photoURL = '';
-
-
-        let uid = '';
+        this.displayName = '';
+        this.email = '';
+        this.photoURL = '';
+        this.uid = '';
 
         if (firebaseUser) {
-            displayName = firebaseUser.displayName ? firebaseUser.displayName : '';
-            email = firebaseUser.email ? firebaseUser.email : '';
-            photoURL = firebaseUser.photoURL ? firebaseUser.photoURL : '';
-            uid = firebaseUser.uid ? firebaseUser.uid : '';
+            this.displayName = firebaseUser.displayName ? firebaseUser.displayName : '';
+            this.email = firebaseUser.email ? firebaseUser.email : '';
+            this.photoURL = firebaseUser.photoURL ? firebaseUser.photoURL : '';
+            this.uid = firebaseUser.uid ? firebaseUser.uid : '';
         }
     }
 }
