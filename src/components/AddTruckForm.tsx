@@ -34,7 +34,7 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
                 }}
             >
                 {cuisines.map((cuisine, id) => (
-                    <option value={cuisine.value}>{cuisine.value}</option>
+                    <option key={id} value={cuisine.value}>{cuisine.value}</option>
                 ))}
             </Form.Select>
         );
