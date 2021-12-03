@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './scss/App.scss';
 import {Home} from "./pages/Home";
 import {Routes, Route} from 'react-router-dom'
@@ -13,6 +13,8 @@ import {NavMenu} from "./components/NavMenu";
 require('dotenv').config();
 
 function App() {
+    const user = useState(null);
+
     return (
         <div className="App">
             <NavMenu />

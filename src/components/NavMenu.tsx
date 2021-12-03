@@ -2,7 +2,9 @@ import {FunctionComponent} from "react";
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-type NavMenuProps = {}
+type NavMenuProps = {
+
+}
 
 export const NavMenu : FunctionComponent<NavMenuProps> = (props) => {
     const navStyle = {'fontSize':'1.25rem', 'letterSpacing':'.1rem', '--bs-bg-opacity': '.9'}
