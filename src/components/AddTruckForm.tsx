@@ -5,6 +5,7 @@ import {cuisines} from "../models/Cuisines";
 import FoodTruck from "../models/FoodTruck";
 import {MenuInput} from "./MenuInput";
 import MenuItem from "../models/MenuItem";
+import {storage} from "../config/firebaseConfig";
 
 type AddTruckFormProps = {
 
@@ -20,7 +21,7 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
     });
     const [address, setAddress] = useState({});
     const [menu, setMenu] = useState<MenuItem[]>([]);
-    const [imageFile, setImageFile] = useState<File>();
+    const [imageFile, setImageFile] = useState<File | null>(null);
     const {ref} = usePlacesWidget<HTMLInputElement>({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         onPlaceSelected: (p) => {
@@ -30,6 +31,7 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
             types: ['address'],
         }
     });
+
     const getCuisines = () => {
         return (
             <Form.Select
@@ -51,10 +53,31 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
         });
     };
 
+    const uploadImage = () => {
+        const truckImagesRef = storage.ref(`/img/${imageFile!.name}`);
+
+        truckImagesRef
+            .put(imageFile!)
+            .then((snapshot) => {
+                console.log('Added image: ', snapshot);
+
+                setImageFile(null);
+
+                return snapshot.ref.getDownloadURL();
+            })
+            .then((url) => {
+                console.log(url);
+                setInputState({...inputState, imageURL: url});
+            })
+            .catch((error) => {
+                console.error('Error adding image', error);
+            });
+    };
+
     const handleSubmit = (e : FormEvent) => {
         e.preventDefault();
 
-    }
+    };
 
     return (
         <Container>
