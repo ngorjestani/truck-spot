@@ -16,6 +16,7 @@ export const MenuInput: FunctionComponent<MenuInputProps> = ({menuList, addItem}
     const handleAddItem = (e: FormEvent) => {
         e.preventDefault();
         addItem(item);
+        console.log('added' + item.name);
         setItem({name:'', price:''})
     }
 
@@ -63,7 +64,9 @@ export const MenuInput: FunctionComponent<MenuInputProps> = ({menuList, addItem}
                     />
                 </Col>
                 <Col>
-                    <Button variant='secondary'><FontAwesomeIcon icon={faPlus} onClick={handleAddItem} /></Button>
+                    <Button variant='secondary' onClick={handleAddItem}>
+                        <FontAwesomeIcon icon={faPlus} />
+                    </Button>
                 </Col>
             </Row>
         </Form>

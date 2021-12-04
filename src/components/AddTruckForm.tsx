@@ -16,10 +16,11 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
         phone: '',
         cuisine: cuisines[0].value,
         website: '',
+        imageURL: '',
     });
     const [address, setAddress] = useState({});
     const [menu, setMenu] = useState<MenuItem[]>([]);
-    const [image, setImage] = useState<FileList>();
+    const [imageFile, setImageFile] = useState<File>();
     const {ref} = usePlacesWidget<HTMLInputElement>({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         onPlaceSelected: (p) => {
@@ -126,7 +127,7 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
                                 type="file"
                                 onChange={(e) => {
                                     if (e.target.files) {
-                                        setImage(e.target.files);
+                                        setImageFile(e.target.files[0]);
                                     }
                                 }}
                             />
