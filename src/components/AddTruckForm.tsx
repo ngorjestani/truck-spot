@@ -3,6 +3,8 @@ import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {usePlacesWidget} from "react-google-autocomplete";
 import {cuisines} from "../models/Cuisines";
 import FoodTruck from "../models/FoodTruck";
+import {MenuInput} from "./MenuInput";
+import MenuItem from "../models/MenuItem";
 
 type AddTruckFormProps = {
 
@@ -16,6 +18,7 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
         website: '',
     });
     const [address, setAddress] = useState({});
+    const [menu, setMenu] = useState<MenuItem[]>([]);
     const [image, setImage] = useState<FileList>();
     const {ref} = usePlacesWidget<HTMLInputElement>({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -39,6 +42,12 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
                 ))}
             </Form.Select>
         );
+    };
+
+    const addMenuItem = (item: MenuItem) => {
+        setMenu((prevState) => {
+            return [...prevState, item];
+        });
     };
 
     const handleSubmit = (e : FormEvent) => {
@@ -124,6 +133,7 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
                         </div>
                     </Col>
                 </Row>
+                <MenuInput menuList={menu} addItem={addMenuItem} />
                 <Button variant='primary' type='submit' className='mt-2 rounded-pill shadow-sm'>
                     Add truck
                 </Button>
