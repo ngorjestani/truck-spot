@@ -32,7 +32,7 @@ export const MenuInput: FunctionComponent<MenuInputProps> = ({menuList, addItem}
     );
 
     return (
-        <Form>
+        <div>
             <Row className='mb-2'>
                 <Col xs={7}>
                     Menu Item
@@ -69,6 +69,6 @@ export const MenuInput: FunctionComponent<MenuInputProps> = ({menuList, addItem}
                     </Button>
                 </Col>
             </Row>
-        </Form>
+        </div>
     );
 }
