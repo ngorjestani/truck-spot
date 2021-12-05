@@ -16,8 +16,7 @@ export const MenuInput: FunctionComponent<MenuInputProps> = ({menuList, addItem}
     const handleAddItem = (e: FormEvent) => {
         e.preventDefault();
         addItem(item);
-        console.log('added' + item.name);
-        setItem({name:'', price:''})
+        setItem({name:'', price:''});
     }
 
     const listItems = menuList.map((item) =>

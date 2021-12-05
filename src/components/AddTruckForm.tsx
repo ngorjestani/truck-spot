@@ -6,6 +6,7 @@ import FoodTruck from "../models/FoodTruck";
 import {MenuInput} from "./MenuInput";
 import MenuItem from "../models/MenuItem";
 import {storage} from "../config/firebaseConfig";
+import {nanoid} from "nanoid";
 
 type AddTruckFormProps = {
 
@@ -55,23 +56,19 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
-        const truckImagesRef = storage.ref(`/img/${imageFile!.name}`);
+        const truckImagesRef = storage.ref(`/img/${imageFile!.name}${nanoid(5)}`);
 
         const upload = truckImagesRef.put(imageFile!);
 
         upload.on(
             'state_changed',
-            (snapshot) => {
-                console.log(snapshot.state);
-            },
+            (snapshot) => {},
             (error) => {
                 console.error(error);
             },
             () => {
                 upload.snapshot.ref.getDownloadURL()
                     .then((downloadURL) => {
-                        console.log(downloadURL);
-
                         const foodTruck: FoodTruck = {
                             name: inputState.name,
                             location: address,
