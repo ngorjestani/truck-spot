@@ -11,13 +11,12 @@ type AddTruckFormProps = {
 
 }
 
-export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
+export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
     const [inputState, setInputState] = useState({
         name: '',
         phone: '',
         cuisine: cuisines[0].value,
         website: '',
-        imageURL: '',
     });
     const [address, setAddress] = useState({});
     const [menu, setMenu] = useState<MenuItem[]>([]);
@@ -53,30 +52,40 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
         });
     };
 
-    const uploadImage = () => {
-        const truckImagesRef = storage.ref(`/img/${imageFile!.name}`);
-
-        truckImagesRef
-            .put(imageFile!)
-            .then((snapshot) => {
-                console.log('Added image: ', snapshot);
-
-                setImageFile(null);
-
-                return snapshot.ref.getDownloadURL();
-            })
-            .then((url) => {
-                console.log(url);
-                setInputState({...inputState, imageURL: url});
-            })
-            .catch((error) => {
-                console.error('Error adding image', error);
-            });
-    };
-
-    const handleSubmit = (e : FormEvent) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
+        const truckImagesRef = storage.ref(`/img/${imageFile!.name}`);
+
+        const upload = truckImagesRef.put(imageFile!);
+
+        upload.on(
+            'state_changed',
+            (snapshot) => {
+                console.log(snapshot.state);
+            },
+            (error) => {
+                console.error(error);
+            },
+            () => {
+                upload.snapshot.ref.getDownloadURL()
+                    .then((downloadURL) => {
+                        console.log(downloadURL);
+
+                        const foodTruck: FoodTruck = {
+                            name: inputState.name,
+                            location: address,
+                            phone: inputState.phone,
+                            cuisine: inputState.cuisine,
+                            website: inputState.website,
+                            menu: menu,
+                            imageURL: downloadURL,
+                        };
+
+                        console.log(foodTruck);
+                    });
+            }
+        );
     };
 
     return (
@@ -157,7 +166,7 @@ export const AddTruckForm : FunctionComponent<AddTruckFormProps> = (props) => {
                         </div>
                     </Col>
                 </Row>
-                <MenuInput menuList={menu} addItem={addMenuItem} />
+                <MenuInput menuList={menu} addItem={addMenuItem}/>
                 <Button variant='primary' type='submit' className='mt-2 rounded-pill shadow-sm'>
                     Add truck
                 </Button>
