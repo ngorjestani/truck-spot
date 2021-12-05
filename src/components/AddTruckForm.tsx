@@ -2,7 +2,7 @@ import {FormEvent, FunctionComponent, useRef, useState} from "react";
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {usePlacesWidget} from "react-google-autocomplete";
 import {cuisines} from "../models/Cuisines";
-import FoodTruck from "../models/FoodTruck";
+import IFoodTruck from "../models/IFoodTruck";
 import {MenuInput} from "./MenuInput";
 import MenuItem from "../models/MenuItem";
 import {db, storage} from "../config/firebaseConfig";
@@ -71,7 +71,7 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
             () => {
                 upload.snapshot.ref.getDownloadURL()
                     .then((downloadURL) => {
-                        const foodTruck: FoodTruck = {
+                        const foodTruck: IFoodTruck = {
                             name: inputState.name,
                             location: address,
                             phone: inputState.phone,
