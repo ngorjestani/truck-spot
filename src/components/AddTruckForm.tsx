@@ -5,8 +5,9 @@ import {cuisines} from "../models/Cuisines";
 import FoodTruck from "../models/FoodTruck";
 import {MenuInput} from "./MenuInput";
 import MenuItem from "../models/MenuItem";
-import {storage} from "../config/firebaseConfig";
+import {db, storage} from "../config/firebaseConfig";
 import {nanoid} from "nanoid";
+import {useNavigate} from "react-router-dom";
 
 type AddTruckFormProps = {
 
@@ -21,7 +22,7 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
     });
     const [address, setAddress] = useState({});
     const [menu, setMenu] = useState<MenuItem[]>([]);
-    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [imageFile, setImageFile] = useState<File>();
     const {ref} = usePlacesWidget<HTMLInputElement>({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         onPlaceSelected: (p) => {
@@ -31,6 +32,7 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
             types: ['address'],
         }
     });
+    const navigate = useNavigate();
 
     const getCuisines = () => {
         return (
@@ -79,7 +81,14 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
                             imageURL: downloadURL,
                         };
 
-                        console.log(foodTruck);
+                        db.collection('foodTrucks')
+                            .add(Object.assign({}, foodTruck))
+                            .then(() => {
+                                navigate('/');
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
                     });
             }
         );
