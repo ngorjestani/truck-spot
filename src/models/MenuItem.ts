@@ -6,6 +6,15 @@ class MenuItem {
         this.name = name;
         this.price = price;
     }
+
+    toFirestore() {
+        return {
+            name: this.name,
+            price: this.price,
+        }
+    }
 }
+
+
 
 export default MenuItem;
