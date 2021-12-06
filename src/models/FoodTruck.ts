@@ -1,13 +1,11 @@
 import MenuItem from "./MenuItem";
 import IFoodTruck from "./IFoodTruck";
-import PlaceResult = google.maps.places.PlaceResult;
 import IMenuItem from "./IMenuItem";
-import LatLng = google.maps.LatLng;
 
 class FoodTruck {
     name: string;
     address: string;
-    coordinates: LatLng;
+    coordinates: google.maps.LatLng;
     phone: string;
     cuisine: string;
     website: string;

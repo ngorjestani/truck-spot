@@ -9,6 +9,7 @@ import {db, storage} from "../config/firebaseConfig";
 import {nanoid} from "nanoid";
 import {useNavigate} from "react-router-dom";
 import IMenuItem from "../models/IMenuItem";
+import FoodTruck from "../models/FoodTruck";
 
 type AddTruckFormProps = {
 
@@ -83,7 +84,7 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
                         };
 
                         db.collection('foodTrucks')
-                            .add(Object.assign({}, foodTruck))
+                            .add(new FoodTruck(foodTruck).toFirestore())
                             .then(() => {
                                 navigate('/');
                             })
