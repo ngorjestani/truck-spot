@@ -1,5 +1,6 @@
 import PlaceResult = google.maps.places.PlaceResult;
 import MenuItem from "./MenuItem";
+import IMenuItem from "./IMenuItem";
 
 interface IFoodTruck {
     name: string;
@@ -7,7 +8,7 @@ interface IFoodTruck {
     phone?: string;
     cuisine: string;
     website?: string;
-    menu?: MenuItem[];
+    menu?: IMenuItem[];
     imageURL?: string;
 }
 

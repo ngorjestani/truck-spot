@@ -4,14 +4,15 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
 import {nanoid} from "nanoid";
+import IMenuItem from "../models/IMenuItem";
 
 type MenuInputProps = {
-    menuList: MenuItem[],
-    addItem: (item: MenuItem) => void,
+    menuList: IMenuItem[],
+    addItem: (item: IMenuItem) => void,
 }
 
 export const MenuInput: FunctionComponent<MenuInputProps> = ({menuList, addItem}) => {
-    const [item, setItem] = useState<MenuItem>({name: '', price: ''});
+    const [item, setItem] = useState<IMenuItem>({name: '', price: ''});
 
     const handleAddItem = (e: FormEvent) => {
         e.preventDefault();

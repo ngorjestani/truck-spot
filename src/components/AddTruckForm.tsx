@@ -8,6 +8,7 @@ import MenuItem from "../models/MenuItem";
 import {db, storage} from "../config/firebaseConfig";
 import {nanoid} from "nanoid";
 import {useNavigate} from "react-router-dom";
+import IMenuItem from "../models/IMenuItem";
 
 type AddTruckFormProps = {
 
@@ -21,7 +22,7 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
         website: '',
     });
     const [address, setAddress] = useState({});
-    const [menu, setMenu] = useState<MenuItem[]>([]);
+    const [menu, setMenu] = useState<IMenuItem[]>([]);
     const [imageFile, setImageFile] = useState<File>();
     const {ref} = usePlacesWidget<HTMLInputElement>({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -49,7 +50,7 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
         );
     };
 
-    const addMenuItem = (item: MenuItem) => {
+    const addMenuItem = (item: IMenuItem) => {
         setMenu((prevState) => {
             return [...prevState, item];
         });
