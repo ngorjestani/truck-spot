@@ -1,6 +1,7 @@
 import MenuItem from "./MenuItem";
 import IFoodTruck from "./IFoodTruck";
 import IMenuItem from "./IMenuItem";
+import firebase from "firebase";
 
 class FoodTruck {
     name: string;
@@ -43,6 +44,23 @@ class FoodTruck {
             website: this.website,
             menu: menuItems,
             imageURL: this.imageURL,
+        }
+    }
+
+    static fromFirestore() {
+        return {
+            fromFirestore: function (
+                snapshot: firebase.firestore.QueryDocumentSnapshot,
+                options: firebase.firestore.SnapshotOptions
+            ): FoodTruck {
+                const data = snapshot.data(options);
+                let menuList: IMenuItem[] = [];
+
+                data.menu.forEach((item: IMenuItem) => {
+
+                })
+
+            }
         }
     }
 }
