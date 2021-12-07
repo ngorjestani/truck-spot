@@ -1,4 +1,5 @@
 import {FunctionComponent} from "react";
+import {TruckList} from "../components/TruckList";
 
 type SearchResultsProps = {
 
@@ -6,6 +7,8 @@ type SearchResultsProps = {
 
 export const SearchResults : FunctionComponent<SearchResultsProps> = (props) => {
     return (
-        <div></div>
+        <div>
+            <TruckList />
+        </div>
     )
 }
