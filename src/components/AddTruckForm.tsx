@@ -2,13 +2,11 @@ import {FormEvent, FunctionComponent, useRef, useState} from "react";
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {usePlacesWidget} from "react-google-autocomplete";
 import {cuisines} from "../models/Cuisines";
-import IFoodTruck from "../models/IFoodTruck";
 import {MenuInput} from "./MenuInput";
 import MenuItem from "../models/MenuItem";
 import {db, storage} from "../config/firebaseConfig";
 import {nanoid} from "nanoid";
 import {useNavigate} from "react-router-dom";
-import IMenuItem from "../models/IMenuItem";
 import FoodTruck from "../models/FoodTruck";
 
 type AddTruckFormProps = {

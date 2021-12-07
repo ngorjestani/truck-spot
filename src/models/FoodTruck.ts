@@ -1,6 +1,4 @@
 import MenuItem from "./MenuItem";
-import IFoodTruck from "./IFoodTruck";
-import firebase from "firebase";
 
 class FoodTruck {
     name: string;
