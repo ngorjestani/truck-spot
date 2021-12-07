@@ -1,23 +1,24 @@
 import MenuItem from "../models/MenuItem";
-import {FormEvent, FunctionComponent, useEffect, useState} from "react";
+import {FormEvent, FunctionComponent, useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
 import {nanoid} from "nanoid";
-import IMenuItem from "../models/IMenuItem";
 
 type MenuInputProps = {
-    menuList: IMenuItem[],
-    addItem: (item: IMenuItem) => void,
+    menuList: MenuItem[],
+    addItem: (item: MenuItem) => void,
 }
 
 export const MenuInput: FunctionComponent<MenuInputProps> = ({menuList, addItem}) => {
-    const [item, setItem] = useState<IMenuItem>({name: '', price: ''});
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
 
     const handleAddItem = (e: FormEvent) => {
         e.preventDefault();
-        addItem(item);
-        setItem({name:'', price:''});
+        addItem(new MenuItem(name, price));
+        setName('');
+        setPrice('');
     }
 
     const listItems = menuList.map((item) =>
@@ -47,20 +48,16 @@ export const MenuInput: FunctionComponent<MenuInputProps> = ({menuList, addItem}
                     <Form.Control
                         type='text'
                         placeholder='Menu Item'
-                        value={item.name}
-                        onChange={(e) => {
-                            setItem({...item, name: e.target.value});
-                        }}
+                        value={name}
+                        onChange={e => setName(e.target.value)}
                     />
                 </Col>
                 <Col xs={3}>
                     <Form.Control
                         type='text'
                         placeholder='Price'
-                        value={item.price}
-                        onChange={(e) => {
-                            setItem({...item, price: e.target.value});
-                        }}
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
                     />
                 </Col>
                 <Col>

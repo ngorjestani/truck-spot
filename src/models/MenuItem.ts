@@ -1,12 +1,10 @@
-import IMenuItem from "./IMenuItem";
-
 class MenuItem {
     name: string;
     price: string;
 
-    constructor(item: IMenuItem) {
-        this.name = item.name;
-        this.price = item.price;
+    constructor(itemName?: string, itemPrice?: string) {
+        this.name = itemName ? itemName :  '';
+        this.price = itemPrice ? itemPrice : '';
     }
 
     toFirestore() {

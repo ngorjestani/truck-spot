@@ -23,7 +23,7 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
         website: '',
     });
     const [address, setAddress] = useState({});
-    const [menu, setMenu] = useState<IMenuItem[]>([]);
+    const [menu, setMenu] = useState<MenuItem[]>([]);
     const [imageFile, setImageFile] = useState<File>();
     const {ref} = usePlacesWidget<HTMLInputElement>({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -51,7 +51,7 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
         );
     };
 
-    const addMenuItem = (item: IMenuItem) => {
+    const addMenuItem = (item: MenuItem) => {
         setMenu((prevState) => {
             return [...prevState, item];
         });
@@ -73,18 +73,18 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
             () => {
                 upload.snapshot.ref.getDownloadURL()
                     .then((downloadURL) => {
-                        const foodTruck: IFoodTruck = {
-                            name: inputState.name,
-                            location: address,
-                            phone: inputState.phone,
-                            cuisine: inputState.cuisine,
-                            website: inputState.website,
-                            menu: menu,
-                            imageURL: downloadURL,
-                        };
+                        const foodTruck = new FoodTruck(
+                            inputState.name,
+                            address,
+                            inputState.phone,
+                            inputState.cuisine,
+                            inputState.website,
+                            menu,
+                            downloadURL
+                        );
 
                         db.collection('foodTrucks')
-                            .add(new FoodTruck(foodTruck).toFirestore())
+                            .add(foodTruck.toFirestore())
                             .then(() => {
                                 navigate('/');
                             })

@@ -1,6 +1,5 @@
 import MenuItem from "./MenuItem";
 import IFoodTruck from "./IFoodTruck";
-import IMenuItem from "./IMenuItem";
 import firebase from "firebase";
 
 class FoodTruck {
@@ -10,18 +9,26 @@ class FoodTruck {
     phone: string;
     cuisine: string;
     website: string;
-    menu: IMenuItem[];
+    menu: MenuItem[];
     imageURL: string;
 
-    constructor(truck: IFoodTruck) {
-        this.name = truck.name;
-        this.address = truck.location.formatted_address!;
-        this.coordinates = truck.location.geometry?.location!;
-        this.phone = truck.phone;
-        this.cuisine = truck.cuisine;
-        this.website = truck.website;
-        this.menu = truck.menu;
-        this.imageURL = truck.imageURL;
+    constructor(
+        truckName: string,
+        truckPlace: google.maps.places.PlaceResult,
+        truckPhone: string,
+        truckCuisine: string,
+        truckWebsite: string,
+        truckMenu: MenuItem[],
+        truckImageURL: string,
+    ) {
+        this.name = truckName;
+        this.address = truckPlace.formatted_address!;
+        this.coordinates = truckPlace.geometry?.location!;
+        this.phone = truckPhone;
+        this.cuisine = truckCuisine;
+        this.website = truckWebsite;
+        this.menu = truckMenu;
+        this.imageURL = truckImageURL;
     }
 
     toFirestore() {
@@ -32,7 +39,7 @@ class FoodTruck {
         const menuItems: Object[] = [];
 
         this.menu.forEach((item) => {
-            menuItems.push(new MenuItem(item).toFirestore());
+            menuItems.push(item.toFirestore());
         });
 
         return {
@@ -47,22 +54,20 @@ class FoodTruck {
         }
     }
 
-    static fromFirestore() {
-        return {
-            fromFirestore: function (
-                snapshot: firebase.firestore.QueryDocumentSnapshot,
-                options: firebase.firestore.SnapshotOptions
-            ): FoodTruck {
-                const data = snapshot.data(options);
-                let menuList: IMenuItem[] = [];
-
-                data.menu.forEach((item: IMenuItem) => {
-
-                })
-
-            }
-        }
-    }
+    // static fromFirestore() {
+    //     return {
+    //         fromFirestore: function (
+    //             snapshot: firebase.firestore.QueryDocumentSnapshot,
+    //             options: firebase.firestore.SnapshotOptions
+    //         ): FoodTruck {
+    //             const data = snapshot.data(options);
+    //             const newTruck: IFoodTruck = {
+    //
+    //             }
+    //
+    //         }
+    //     }
+    // }
 }
 
 export default FoodTruck;
