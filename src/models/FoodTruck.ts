@@ -1,4 +1,5 @@
 import MenuItem from "./MenuItem";
+import firebase from "firebase";
 
 class FoodTruck {
     name: string;
@@ -12,7 +13,8 @@ class FoodTruck {
 
     constructor(
         truckName: string,
-        truckPlace: google.maps.places.PlaceResult,
+        truckAddress: string,
+        truckCoordinates: google.maps.LatLng,
         truckPhone: string,
         truckCuisine: string,
         truckWebsite: string,
@@ -20,8 +22,8 @@ class FoodTruck {
         truckImageURL: string,
     ) {
         this.name = truckName;
-        this.address = truckPlace.formatted_address!;
-        this.coordinates = truckPlace.geometry?.location!;
+        this.address = truckAddress;
+        this.coordinates = truckCoordinates;
         this.phone = truckPhone;
         this.cuisine = truckCuisine;
         this.website = truckWebsite;
@@ -52,20 +54,32 @@ class FoodTruck {
         }
     }
 
-    // static fromFirestore() {
-    //     return {
-    //         fromFirestore: function (
-    //             snapshot: firebase.firestore.QueryDocumentSnapshot,
-    //             options: firebase.firestore.SnapshotOptions
-    //         ): FoodTruck {
-    //             const data = snapshot.data(options);
-    //             const newTruck: IFoodTruck = {
-    //
-    //             }
-    //
-    //         }
-    //     }
-    // }
+    static fromFirestore() {
+        return {
+            fromFirestore: function (
+                snapshot: firebase.firestore.QueryDocumentSnapshot,
+                options: firebase.firestore.SnapshotOptions
+            ): FoodTruck {
+                const data = snapshot.data(options);
+                let menuItems : MenuItem[] = [];
+
+                data.menu.forEach((item: any) => {
+                    menuItems.push(new MenuItem(item.name, item.price));
+                });
+
+                return new FoodTruck(
+                    data.name,
+                    data.address,
+                    new google.maps.LatLng(data.coordinates.lat, data.coordinates.lng),
+                    data.phone,
+                    data.cuisine,
+                    data.website,
+                    menuItems,
+                    data.imageURL,
+                );
+            }
+        }
+    }
 }
 
 export default FoodTruck;

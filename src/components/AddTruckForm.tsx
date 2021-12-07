@@ -20,7 +20,7 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
         cuisine: cuisines[0].value,
         website: '',
     });
-    const [address, setAddress] = useState({});
+    const [address, setAddress] = useState<google.maps.places.PlaceResult>({});
     const [menu, setMenu] = useState<MenuItem[]>([]);
     const [imageFile, setImageFile] = useState<File>();
     const {ref} = usePlacesWidget<HTMLInputElement>({
@@ -73,7 +73,8 @@ export const AddTruckForm: FunctionComponent<AddTruckFormProps> = (props) => {
                     .then((downloadURL) => {
                         const foodTruck = new FoodTruck(
                             inputState.name,
-                            address,
+                            address.formatted_address!,
+                            address.geometry?.location!,
                             inputState.phone,
                             inputState.cuisine,
                             inputState.website,
