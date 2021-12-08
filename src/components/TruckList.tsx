@@ -1,4 +1,4 @@
-import {FunctionComponent} from "react";
+import {FunctionComponent, useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
 import {db} from "../config/firebaseConfig";
 import FoodTruck from "../models/FoodTruck";
@@ -8,20 +8,37 @@ type TruckListProps = {
 }
 
 export const TruckList : FunctionComponent<TruckListProps> = (props) => {
-    const handleButtonClick = () => {
-        const trucks = db.collection(FoodTruck.collectionName)
+    const [trucks, setTrucks] = useState<FoodTruck[]>([]);
+    const getListOfTrucksFromFirebase = async () => {
+        const response = db.collection(FoodTruck.collectionName);
+        const data = await response
             .withConverter(FoodTruck.firebaseConverter)
-            .get()
-            .then((snapshot) => {
-                snapshot.forEach((doc) => {
-                    console.log(doc.data());
-                })
+            .get();
+        data.docs.forEach((doc) => {
+            // console.log(doc.data());
+            setTrucks((prevState) => {
+                return [...prevState, doc.data()];
             })
+            console.log(trucks[0]);
+        });
     };
+    useEffect(() => {
+        getListOfTrucksFromFirebase();
+    }, []);
 
     return (
         <div>
-            <Button variant="primary" onClick={handleButtonClick}>Log truck list</Button>
+            {
+                trucks && trucks.map((truck) => {
+                    return (
+                        <div>
+                            <h3>{truck.name}</h3>
+                            <p>{truck.phone}, {truck.website}, {truck.cuisine}</p>
+                            <img src={truck.imageURL} alt=""/>
+                        </div>
+                    )
+                })
+            }
         </div>
     )
 }
