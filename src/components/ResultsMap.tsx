@@ -4,7 +4,7 @@ type MapProps = {
 
 }
 
-export const Map : FunctionComponent<MapProps> = (props) => {
+export const ResultsMap : FunctionComponent<MapProps> = (props) => {
     return (
         <div></div>
     )
