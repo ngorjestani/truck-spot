@@ -1,6 +1,7 @@
 import {FunctionComponent, useState} from "react";
 import {Col, Container, Image, Row} from "react-bootstrap";
 import {Search} from "../components/Search";
+import {useNavigate} from "react-router-dom";
 
 type HomeProps = {
 
@@ -8,13 +9,14 @@ type HomeProps = {
 
 export const Home : FunctionComponent<HomeProps> = (props) => {
     const [searchValue, setSearchValue] = useState<google.maps.places.PlaceResult>({});
+    const navigate = useNavigate();
 
     const handlePlaceSelected = (newValue: google.maps.places.PlaceResult) => {
         setSearchValue(newValue);
     }
 
     const handleSubmit = () => {
-        console.log(searchValue);
+        navigate('results');
     }
 
     return (
