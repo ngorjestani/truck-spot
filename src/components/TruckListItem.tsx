@@ -1,6 +1,6 @@
 import {FunctionComponent} from "react";
 import FoodTruck from "../models/FoodTruck";
-import {Card} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 
 type TruckListItemProps = {
     truck: FoodTruck,
@@ -8,8 +8,8 @@ type TruckListItemProps = {
 
 export const TruckListItem : FunctionComponent<TruckListItemProps> = ({truck}) => {
     return (
-        <Card style={{width: '20rem'}}>
-            <Card.Img variant='top' src={truck.imageURL} />
+        <Card style={{backgroundColor: '#eee'}} className='border-0'>
+            <Card.Img variant='top' src={truck.imageURL} style={{height: '160px'}} />
             <Card.Body>
                 <Card.Title>{truck.name}</Card.Title>
                 <Card.Text>
@@ -17,6 +17,7 @@ export const TruckListItem : FunctionComponent<TruckListItemProps> = ({truck}) =
                     Cuisine: {truck.cuisine}<br />
                     Phone: {truck.phone}<br />
                 </Card.Text>
+                <Button variant='secondary'>Details</Button>
             </Card.Body>
         </Card>
     )

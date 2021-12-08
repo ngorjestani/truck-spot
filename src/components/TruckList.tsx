@@ -1,7 +1,9 @@
 import {FunctionComponent, useEffect, useState} from "react";
-import {Button} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import {db} from "../config/firebaseConfig";
 import FoodTruck from "../models/FoodTruck";
+import {TruckListItem} from "./TruckListItem";
+import {nanoid} from "nanoid";
 
 type TruckListProps = {
 
@@ -26,19 +28,17 @@ export const TruckList : FunctionComponent<TruckListProps> = (props) => {
         getListOfTrucksFromFirebase();
     }, []);
 
+    const getCards = trucks.map(truck => (
+        <Col key={nanoid(5)} className='my-2 mx-1' md={5} xl={3}>
+            <TruckListItem truck={truck} />
+        </Col>
+    ));
+
     return (
-        <div>
-            {
-                trucks && trucks.map((truck) => {
-                    return (
-                        <div>
-                            <h3>{truck.name}</h3>
-                            <p>{truck.phone}, {truck.website}, {truck.cuisine}</p>
-                            <img src={truck.imageURL} alt=""/>
-                        </div>
-                    )
-                })
-            }
-        </div>
+        <Container>
+            <Row>
+                {getCards}
+            </Row>
+        </Container>
     )
 }
